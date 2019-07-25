@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Detectors\SmokeDetector.cs" />
+    <Compile Include="SmokeSubscribes\Ambulance.cs" />
+    <Compile Include="SmokeSubscribes\FiremanSam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
