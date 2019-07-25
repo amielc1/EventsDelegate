@@ -12,13 +12,13 @@ namespace EventsDelegate.SmokeSubscribes
         public FiremanSam(SmokeDetector smokeDetector)
         {
             this.smokeDetector = smokeDetector;
-            smokeDetector.evSmokeDetected += SmokeDetector_evSmokeDetected;
+            smokeDetector.evSmokeDetected += SmokeDetector_evSmokeDetected; ;
             smokeDetector.delSmokeDetected += SmokeDetector_delSmokeDetected;
         }
-
-        private void SmokeDetector_evSmokeDetected(double smokeRate)
+  
+        private void SmokeDetector_evSmokeDetected(object sender, SmokeDetectorArgs e)
         {
-            Console.WriteLine($"Event Smoke detected! {smokeRate} {this}" );
+            Console.WriteLine($"Event Smoke detected! {e.ToString()} {sender}" );
         }
         private void SmokeDetector_delSmokeDetected(double smokeRate)
         {

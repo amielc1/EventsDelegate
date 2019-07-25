@@ -17,15 +17,20 @@ namespace EventsDelegate.SmokeSubscribes
             smokeDetector.delSmokeDetected = SmokeDetector_delSmokeDetected;
         }
 
-        private void SmokeDetector_evSmokeDetected(double smokeRate)
+        private void SmokeDetector_evSmokeDetected(object sender, SmokeDetectorArgs e)
         {
-            Console.WriteLine($"Event Smoke detected! {smokeRate} {this}");
+            Console.WriteLine($"Event Smoke detected! {e.ToString()} {sender}");
         }
         private void SmokeDetector_delSmokeDetected(double smokeRate)
         {
             Console.WriteLine($"Delegate Smoke detected! {smokeRate} {this}");
         }
 
+        public void SetAllToNull()
+        {
+            //smokeDetector.evSmokeDetected = null;
+            smokeDetector.delSmokeDetected = null;
+        }
         public void RaiseAll()
         {
             //smokeDetector.evSmokeDetected(4); It is not possible to fire event outside its class!!
