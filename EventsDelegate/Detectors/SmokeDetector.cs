@@ -56,6 +56,26 @@ namespace EventsDelegate
                 }
             }
         }
+
+        public void SafeRaise()
+        {
+            var exceptions = new List<Exception>();
+            foreach (var subscriber in _evSmokeDetected.GetInvocationList())
+            {
+                try
+                {
+                    subscriber.DynamicInvoke(this, new SmokeDetectorArgs(2,string.Empty));
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
+            }
+            if (exceptions.Any())
+            {
+                throw new AggregateException(exceptions);
+            }
+        }
     }
 
 }
