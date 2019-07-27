@@ -23,8 +23,25 @@ namespace EventsDelegate
     public class SmokeDetector
     {
         public Action<double> delSmokeDetected;
-        public event EventHandler<SmokeDetectorArgs> evSmokeDetected;
+        private event EventHandler<SmokeDetectorArgs> _evSmokeDetected = delegate { };
+        public event EventHandler<SmokeDetectorArgs> evSmokeDetected
+        {
+            add
+            {
+                lock (_evSmokeDetected)
+                {
+                    _evSmokeDetected += value;
+                }
+            }
+            remove
+            {
+                lock (_evSmokeDetected)
+                {
+                    _evSmokeDetected -= value;
 
+                }
+            }
+        }
         private double _SmokeRate;
         public double SmokeRate
         {
@@ -34,7 +51,7 @@ namespace EventsDelegate
                 _SmokeRate = value;
                 if (_SmokeRate > 20)
                 {
-                    evSmokeDetected(this, new SmokeDetectorArgs(value, "Bulding 1"));
+                    _evSmokeDetected(this, new SmokeDetectorArgs(value, "Bulding 1"));
                     delSmokeDetected(value);
                 }
             }
